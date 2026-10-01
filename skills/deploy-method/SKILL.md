@@ -161,11 +161,17 @@ Name:
    report goes.
 6. **Scope boundary.** What this tool must not be used for. Written down, because the most common
    post-launch failure is a tool proving useful in its lane and then trusted outside it.
+7. **Failure surfacing.** Item 5 covers the failure a user notices. This covers the one nobody
+   notices. Answer four questions: how do we know it ran? How do we know it failed? Can it quietly
+   correct itself, and if so, is that recorded? Where does the failure alert land, who owns it, and
+   what happens if they do not act? A tool that can fail invisibly fails this gate. Silent failure
+   is worse than no tool at all, because people stop checking by hand while nothing else is
+   checking either.
 
-**Exit condition:** all six named, with a person attached to each.
+**Exit condition:** all seven named, with a person attached to each.
 
-**Fail condition:** any of the six with no person attached, or a review trigger that is only a date.
-Name the gap and stop.
+**Fail condition:** any of the seven with no person attached, a review trigger that is only a date,
+or a tool that can fail without anyone being told. Name the gap and stop.
 
 ## Checkpoint before anything is written
 
@@ -195,6 +201,7 @@ without re-parsing prose:
   "guard_metric": {"name": "<name>", "guards_against": "<the gaming mode>"},
   "kill_criterion": {"reading": "<the reading that ends it>", "source": "<person>"},
   "review_trigger": "<what fires the review>",
+  "failure_surfacing": {"ran_signal": "<how we know it ran>", "fail_signal": "<how we know it failed>", "self_correction": "<none, or where it is recorded>", "alert": "<where the alert lands>", "alert_owner": "<who>"},
   "owner": "<name>",
   "approver": "<name>"
 }
@@ -223,7 +230,9 @@ A small operations team builds a prompt kit that drafts replies to routine custo
   needed. Review trigger: the quarterly ops meeting that already runs, checking both metrics and
   whether the top eight questions are still the top eight. Failure handling: wrong drafts go into a
   running notes file the desk lead reviews weekly. Scope boundary: never billing disputes or
-  anything involving a refund.
+  anything involving a refund. Failure surfacing: the kit logs one line per draft, so a day with
+  tickets and no log lines means it did not run; that check posts to the desk's shared channel each
+  morning, owned by the desk lead, with the operations manager told if it goes two days unanswered.
 
 ## Boundaries
 

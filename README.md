@@ -1,4 +1,4 @@
-# Entropy is the Enemy — Resources
+# Entropy is the Enemy: Resources
 
 Open resources for building **agentic operating systems**: reusable Claude *skills*, teaching guides, templates, and reference material.
 
@@ -19,7 +19,7 @@ See [`skills/README.md`](./skills/README.md) for how to install and use them.
 
 ## The skills
 
-Twenty-four skills, grouped by what you are trying to get done. Every one is a single `SKILL.md` you can read start to finish in a few minutes.
+Twenty-eight skills, grouped by what you are trying to get done. Every one is a `SKILL.md` you can read start to finish in a few minutes; one also carries helper scripts.
 
 ### Writing and voice
 
@@ -31,6 +31,7 @@ Twenty-four skills, grouped by what you are trying to get done. Every one is a s
 | [`bones`](./skills/bones) | Strips a piece down to its load-bearing structure so it can be reused in another format without a rewrite. |
 | [`edit-harvest`](./skills/edit-harvest) | Turns the diff between the draft and what you shipped into reusable corrections future drafts consult. |
 | [`content-harvest`](./skills/content-harvest) | Scans work you have already done for moments worth posting about and files each as a structured idea card. |
+| [`answer-first`](./skills/answer-first) | Rebuilds a memo or proposal so the answer comes first and every reason sits in a clean group beneath it. Structure only; the words stay yours. |
 
 ### Review and verification
 
@@ -40,6 +41,7 @@ Twenty-four skills, grouped by what you are trying to get done. Every one is a s
 | [`trace-review`](./skills/trace-review) | A five-point quality-control pass on AI output: Truth, Relevance, Accuracy of tone, Completeness, Ethics and risk. |
 | [`red-team-reflex`](./skills/red-team-reflex) | Attacks a persuasive document as its harshest credible reader, then triages down to the one objection that flips the decision. |
 | [`hard-look`](./skills/hard-look) | States the strongest objection to a call you are about to make, before agreeing with any of it. The counter to sycophancy. |
+| [`section-review`](./skills/section-review) | Decides whether one section of a formal document is worth proofing as written, recomputing every figure, then applies the fix in place and verifies it. |
 
 ### Building and testing AI tools
 
@@ -64,6 +66,8 @@ Twenty-four skills, grouped by what you are trying to get done. Every one is a s
 | [`tasks-of-record`](./skills/tasks-of-record) | A task system where one plain-text file is the source of truth and every app is a read-only mirror of it. |
 | [`signal-three`](./skills/signal-three) | Exactly three must-finish items a day, at least 70% of effort on them, nothing displacing them until they are done. |
 | [`handoff`](./skills/handoff) | Captures full session context into a continuation document so a new chat picks up without loss. |
+| [`next-session-prompt`](./skills/next-session-prompt) | Prints a short prompt you can paste cold into a new chat, lifted from the handoff when there is one. |
+| [`method-harvest`](./skills/method-harvest) | At the end of a session, drafts the few pieces of reusable method as knowledge-base notes, written only on your go. |
 | [`kb-integrate`](./skills/kb-integrate) | Merges new material into a reference knowledge base the way you would merge code: collisions first, one concept per file. |
 | [`send-imessage`](./skills/send-imessage) | Sends an iMessage from your own Mac through a computer-use bridge, with a confirm gate and screenshot verification. |
 
