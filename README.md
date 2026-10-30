@@ -19,7 +19,7 @@ See [`skills/README.md`](./skills/README.md) for how to install and use them.
 
 ## The skills
 
-Thirty-four skills, grouped by what you are trying to get done. Every one is a `SKILL.md` you can read start to finish in a few minutes; one also carries helper scripts.
+Thirty-five skills, grouped by what you are trying to get done. Every one is a `SKILL.md` you can read start to finish in a few minutes; one also carries helper scripts.
 
 ### Writing and voice
 
@@ -43,6 +43,7 @@ Thirty-four skills, grouped by what you are trying to get done. Every one is a `
 | [`red-team-reflex`](./skills/red-team-reflex) | Attacks a persuasive document as its harshest credible reader, then triages down to the one objection that flips the decision. |
 | [`hard-look`](./skills/hard-look) | States the strongest objection to a call you are about to make, before agreeing with any of it. The counter to sycophancy. |
 | [`section-review`](./skills/section-review) | Decides whether one section of a formal document is worth proofing as written, recomputing every figure, then applies the fix in place and verifies it. |
+| [`hunt-verify-rank`](./skills/hunt-verify-rank) | Audits a whole codebase for bugs and security holes, has a separate agent prove each finding, ranks them Critical to Low, and fixes the worst first on request. |
 
 ### Building and testing AI tools
 
