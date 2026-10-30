@@ -19,7 +19,7 @@ See [`skills/README.md`](./skills/README.md) for how to install and use them.
 
 ## The skills
 
-Twenty-eight skills, grouped by what you are trying to get done. Every one is a `SKILL.md` you can read start to finish in a few minutes; one also carries helper scripts.
+Thirty-four skills, grouped by what you are trying to get done. Every one is a `SKILL.md` you can read start to finish in a few minutes; one also carries helper scripts.
 
 ### Writing and voice
 
@@ -32,6 +32,7 @@ Twenty-eight skills, grouped by what you are trying to get done. Every one is a 
 | [`edit-harvest`](./skills/edit-harvest) | Turns the diff between the draft and what you shipped into reusable corrections future drafts consult. |
 | [`content-harvest`](./skills/content-harvest) | Scans work you have already done for moments worth posting about and files each as a structured idea card. |
 | [`answer-first`](./skills/answer-first) | Rebuilds a memo or proposal so the answer comes first and every reason sits in a clean group beneath it. Structure only; the words stay yours. |
+| [`review-channel-lessons`](./skills/review-channel-lessons) | Turns the corrections other reviewers leave in team review channels into one-lesson files, so the same mistake is not caught twice. |
 
 ### Review and verification
 
@@ -51,6 +52,7 @@ Twenty-eight skills, grouped by what you are trying to get done. Every one is a 
 | [`eval-author`](./skills/eval-author) | Generates an edge-weighted regression suite for a skill or prompt kit, with falsifiable criteria rather than expected outputs. |
 | [`eval-scorer`](./skills/eval-scorer) | Runs an existing suite against a live skill and returns a scorecard, variance across runs, and clustered failure patterns. |
 | [`sub-agent-ops`](./skills/sub-agent-ops) | Picks the architecture for an orchestrated agent run, seals the worker packets, and spawns on your confirmation. |
+| [`earn-autonomy`](./skills/earn-autonomy) | Lets an agent act alone on a judgment call only after a logged record of its picks against yours clears a bar you set in advance. |
 
 ### Thinking and decisions
 
@@ -70,6 +72,10 @@ Twenty-eight skills, grouped by what you are trying to get done. Every one is a 
 | [`method-harvest`](./skills/method-harvest) | At the end of a session, drafts the few pieces of reusable method as knowledge-base notes, written only on your go. |
 | [`kb-integrate`](./skills/kb-integrate) | Merges new material into a reference knowledge base the way you would merge code: collisions first, one concept per file. |
 | [`send-imessage`](./skills/send-imessage) | Sends an iMessage from your own Mac through a computer-use bridge, with a confirm gate and screenshot verification. |
+| [`intake-filing`](./skills/intake-filing) | Empties a drop folder, inbox and chat mentions into the right records, one group at a time, with you ruling before anything moves. |
+| [`notes-maintenance`](./skills/notes-maintenance) | Scheduled upkeep for a large markdown notes folder: health page, rulings ledger and a review queue, with only lossless edits run unattended. |
+| [`safe-workbook-edit`](./skills/safe-workbook-edit) | Edits a live shared spreadsheet through its XML without a library resave, then diffs every cell to prove only the intended ones changed. |
+| [`market-entrant-watch`](./skills/market-entrant-watch) | A scheduled market watch: a short verified news digest for the team and an owner-only log of new entrants and stale reference files. |
 
 ### Acquiring and running a business
 
