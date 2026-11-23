@@ -33,7 +33,7 @@ These are the person's real work files and the folder has no version history, so
 
 Look for a progress file in the connected folder: `00 Operating System/setup-progress.md`, or `_setup-progress.md` at the folder root (where it lives before Phase 5 builds the folders).
 
-- **Found:** read it, then the newest file in `00 Operating System/Handoffs/` if there is one, then the memory index. Tell the person in two lines where they stopped, and continue at the first phase not ticked. Do not repeat interview questions the progress file already answers.
+- **Found:** read it, then the newest handoff if there is one (in `00 Operating System/Handoffs/`, or `_setup-handoff-*.md` at the folder root if the build has not happened yet), then the memory index if it exists. Tell the person in two lines where they stopped, and continue at the first phase not ticked. Do not repeat interview questions the progress file already answers.
 - **Not found:** this is a new setup. Open with a short message that covers these points, then begin Phase 0:
   - What happens: you look at their folder, interview them about their job, show a folder plan, build it once they approve, file their first batch of documents with them, then do one real task from their week.
   - They can stop at any point; progress is saved so a new chat picks up where they stopped.
@@ -62,8 +62,8 @@ Read `references/baseline-rules.md` before you write any file, and apply it to e
 Setup is long, and long chats lose early detail. Two things protect against that.
 
 - **Progress file.** At the end of Phase 0, tell the person you are adding one file to track setup, and create `_setup-progress.md` at the folder root from `assets/setup-progress-template.md`. Tick each phase as it closes, add the recap lines it asks for, and add a line under Phase notes for anything a later chat would need. Phase 5 moves it to `00 Operating System/setup-progress.md`.
-- **Handoffs.** Run the `handoff` skill whenever the person stops for the day, any time the chat is getting long or your memory of earlier answers is slipping (say so plainly), and at the end of Phase 9. The ends of Phase 6 and Phase 8 are good places to offer a stop. A small vault can finish in one chat; do not force a restart that is not needed. Save handoffs in `00 Operating System/Handoffs/`, and after one, tell the person to start the next phase in a fresh chat with the handoff prompt.
-- **No handoff skill.** Write the handoff by hand as `00 Operating System/Handoffs/handoff-YYYY-MM-DD-phase-N.md`: where setup stands, what was decided in this chat, the open items, and a short prompt the person can paste into a new chat that says to continue the vault setup and read the progress file first.
+- **Handoffs.** Run the `handoff` skill whenever the person stops for the day, any time the chat is getting long or your memory of earlier answers is slipping (say so plainly), and at the end of Phase 9. The ends of Phase 6 and Phase 8 are good places to offer a stop. A small vault can finish in one chat; do not force a restart that is not needed. Save handoffs in `00 Operating System/Handoffs/`. Before Phase 5 that folder does not exist yet, so save the handoff at the folder root as `_setup-handoff-YYYY-MM-DD.md`, next to the progress file; Phase 5 moves it. After a handoff, tell the person to start the next phase in a fresh chat with the handoff prompt.
+- **No handoff skill.** Write the handoff by hand as `handoff-YYYY-MM-DD-phase-N.md` in the same place: where setup stands, what was decided in this chat, the open items, and a short prompt the person can paste into a new chat that says to continue the vault setup and read the progress file first.
 
 ## The phases
 

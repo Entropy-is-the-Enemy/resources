@@ -111,6 +111,9 @@ def main():
         return
 
     root = os.path.normpath(os.path.join(VAULT, args.path))
+    # Same guard as --create: an absolute path or ".." must not reach indexes outside the vault.
+    if os.path.relpath(root, VAULT).startswith(".."):
+        sys.exit("refused: %s is outside the vault" % args.path)
     if not os.path.isdir(root):
         sys.exit("not a folder: %s" % args.path)
     counts = {}

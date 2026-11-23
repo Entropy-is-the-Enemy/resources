@@ -35,7 +35,11 @@ import sys
 OS_FOLDER = "00 Operating System"
 NO_INDEX_DIRS = ("_Inbox", "memory")
 EM_DASH = chr(0x2014)
-PLACEHOLDER = re.compile(r"<[A-Za-z][^<>\n]{2,}>")
+# Anything in angle brackets is a candidate; real_placeholders() then drops the
+# things Markdown legitimately puts in angle brackets (autolinks, HTML tags).
+PLACEHOLDER = re.compile(r"<([^<>\n]{3,})>")
+AUTOLINK = re.compile(r"^(?:[a-z][a-z0-9+.-]*:\S+|[^\s@]+@[^\s@]+)$", re.I)
+HTML_TAG = re.compile(r"^/?[A-Za-z][A-Za-z0-9]*(?:\s+[A-Za-z-]+\s*=.*)?\s*/?$")
 HTML_COMMENT = re.compile(r"<!--.*?-->", re.S)
 CODE_SPAN = re.compile(r"`[^`\n]*`")
 
@@ -57,6 +61,16 @@ def read(path):
     except UnicodeDecodeError:
         warn("%s is not UTF-8 text; skipped its content checks" % path)
         return ""
+
+
+def real_placeholders(prose):
+    """Unfilled template slots like <Folder name>, not <https://...>, <a@b.org> or <br>."""
+    found = []
+    for inner in PLACEHOLDER.findall(prose):
+        if AUTOLINK.match(inner) or HTML_TAG.match(inner):
+            continue
+        found.append("<%s>" % inner)
+    return found
 
 
 def need_file(vault, rel):
@@ -109,7 +123,7 @@ def check_style(vault, rel, dropped):
         warn("%s contains a [[wikilink]]; the default rules say use backticked paths" % rel)
     # setup-progress.md and os-spec.md legitimately keep some template wording.
     if os.path.basename(rel) not in ("os-spec.md", "setup-progress.md"):
-        left = PLACEHOLDER.findall(prose)
+        left = real_placeholders(prose)
         if left:
             err("%s still has template placeholder(s): %s" % (rel, ", ".join(left[:3])))
         if "YYYY-MM-DD" in prose and rel != "CLAUDE.md" and "project-instructions" not in rel:
