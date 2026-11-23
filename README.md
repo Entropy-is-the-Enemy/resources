@@ -19,7 +19,7 @@ See [`skills/README.md`](./skills/README.md) for how to install and use them.
 
 ## The skills
 
-Thirty-five skills, grouped by what you are trying to get done. Every one is a `SKILL.md` you can read start to finish in a few minutes; one also carries helper scripts.
+Thirty-six skills, grouped by what you are trying to get done. Every one is a `SKILL.md` you can read start to finish in a few minutes; two also carry helper scripts.
 
 ### Writing and voice
 
@@ -66,6 +66,7 @@ Thirty-five skills, grouped by what you are trying to get done. Every one is a `
 
 | Skill | What it does |
 |---|---|
+| [`vault-setup`](./skills/vault-setup) | Turns a plain work folder into a working vault any later Claude session can pick up: an interview about your job, numbered folders, an inbox, memory and rules, then one real task. Nothing is deleted and nothing moves without your say. |
 | [`tasks-of-record`](./skills/tasks-of-record) | A task system where one plain-text file is the source of truth and every app is a read-only mirror of it. |
 | [`signal-three`](./skills/signal-three) | Exactly three must-finish items a day, at least 70% of effort on them, nothing displacing them until they are done. |
 | [`handoff`](./skills/handoff) | Captures full session context into a continuation document so a new chat picks up without loss. |
