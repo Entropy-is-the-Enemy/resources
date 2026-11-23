@@ -6,12 +6,14 @@ description: >
   how many times does each rhythmic move repeat, and does the register match the situation. Counts the
   failures to decide whether to edit, rewrite, or stop and ask the writer. Also sets up voice transfer
   at the front of a task by pulling sample paragraphs and naming the reader, which works far better
-  than describing a style in adjectives. Trigger on "make this sound like me," "this reads like AI,"
+  than describing a style in adjectives. Sweeps for fourteen common machine-writing patterns as places
+  to point the tests, never as a ban list, and confirms every fact survives a rewrite unchanged.
+  Trigger on "make this sound like me," "this reads like AI," "humanize this," "make it sound human,"
   "de-robot this," "tighten this," "rewrite this in my voice," "why does this feel off," or before any
   draft goes out under a human name. Returns a marked list of instance-level calls with reasons, not a global find and
   replace. This applies the writer's OWN voice; to apply a borrowed one deliberately, see
-  narrative-register. Does NOT check facts, evaluate the argument, or help anything pass an AI
-  detector.
+  narrative-register. Does NOT verify facts (it only confirms a rewrite left them unchanged),
+  evaluate the argument, or help anything pass an AI detector.
 ---
 
 # Sounds Like You
@@ -77,10 +79,44 @@ Count each move across the draft and report it against the budget. Over budget, 
 strongest instance and rewrite the rest flat. Under budget, leave everything alone, including devices
 a list would delete.
 
+## Pattern sweep: where to look
+
+The tests make the rulings. This list only tells you where to point them. These patterns turn up
+again and again in machine-drafted prose. A hit is not a failure by itself: quote it, rule on it with
+Test 0 or Test 1, and count it there.
+
+| Pattern | What it looks like | Usual fix |
+|---|---|---|
+| Arguing with no one | "This isn't about X." "I'm not saying..." | Cut the defense unless a real reader holds that view. |
+| Staged run-up | "Let's dive in." "Here's what you need to know." "Honestly?" | Delete the run-up. Say the thing. |
+| Sayings that sound deep | "At its core." "The real question is." "What really matters." | Replace with the specific claim. |
+| Repeated openings | Three sentences in a row starting "It... It... It..." | Merge, change the subject, or lead with the action. |
+| Inflated significance | "A pivotal moment." "Stands as a testament." | Keep the fact, drop the halo. End on the last concrete fact. |
+| Vague links | "Associated with." "Connected to." "Linked to." | Name the actual relationship, or stay vague only when you truly do not know it. |
+| Shallow -ing tails | "..., highlighting the need for..." "..., reflecting a broader shift." | Keep the fact. Cut the tail unless a source backs it. |
+| Sales adjectives | Stunning, breathtaking, boasts, nestled, rich. | Say what the thing is. |
+| Borrowed authority | "Experts say." "Studies show." | Name the source and what it said, or cut the claim. |
+| Dodging is and has | "Serves as," "stands as," "features." | Use is, are, has. |
+| Decoration | Bold on words that carry no weight. Title Case or emoji headings. | Sentence-case headings. Bold only the one term a skimmer needs. |
+| Guessing at gaps | "It is believed." "Likely." "As of my knowledge." | Say what is not known. Never fill the gap with a guess. |
+| Writing about the document | "The table below compares..." "This section covers..." | Cut it. Show the thing. |
+| Re-explaining | Rebuilding context the reader already has before the decision. | Lead with the decision. Keep only reasoning that would change their mind. |
+
+**Weak alone, count as a cluster.** Stacked qualifiers ("could potentially"), passive voice hiding
+who acted, hyphen pairs after the noun, a mix of curly and straight quotes. One is a writer's choice.
+Several in one passage is a tell: count the cluster as a single decorative ruling.
+
+**The writer's own habits override the sweep.** If the samples show a pattern is how this person
+really writes (an "actually" that marks a change of mind, a row of fragments, a one-word verdict), it
+is a move, not a tell. Budget it under Test 2. Never strike it because a list said so.
+
+The list is adapted from Wikipedia's "Signs of AI writing" (WikiProject AI Cleanup) by way of the
+MIT-licensed `blader/humanizer` skill, v4.0.0.
+
 ## Test 3: register match
 
 Set the register before editing; half of what reads as wrong voice is right voice in the wrong room.
-Define your own modes, five is usually enough, and fix three things for each: target length, opener,
+Define your own modes, five or six is usually enough, and fix three things for each: target length, opener,
 closer.
 
 | Mode | Length | Opener | Closer |
@@ -90,9 +126,16 @@ closer.
 | Public explainer | Longest. Room to build. | A concrete situation, not a definition. | The reader can now do or decide something. |
 | Delivering bad news | Short. Shorter than feels right. | The news, in sentence one. No preamble, no cushion. | What happens next and who owns it. |
 | Recommendation to a decision-maker | Medium. One page maximum. | The recommendation itself. | The consequence of not deciding. |
+| Slide or visual copy | Headline is one claim, about ten words. Subhead is one line. | Name the real unit the reader works with (an invoice, a ticket, a shift), not a near-synonym. | The subhead says what to do. It never restates the headline and never hedges. |
 
 Every opener row also faces the clever-or-clear question in Write order below: a first line that
 satisfies its row and still leaves a stranger guessing at the stakes fails.
+
+**Stakes before relationship.** Pick the mode on stakes and formality first, and on how well you
+know the reader second. A firm, high-stakes, or bad-news message stays restrained even when it goes to
+someone you would normally joke with: keep the plain thanks, drop the in-jokes, the casual greeting,
+and anything performed. When unsure, go restrained. Undershooting is quiet. Overshooting puts fake
+chumminess under a real name.
 
 **Replying, not initiating.** Every row assumes you set the temperature; in correspondence the other
 person often set it first. If their message arrived warm or formal, match that level in your first
@@ -132,13 +175,27 @@ The opener has two jobs: give the reader a reason to feel something, and earn th
 stranger tell what is at stake by the end of it, or is the line clever at the expense of clear?
 Clever loses.
 
+## Repair order
+
+When repairing a draft rather than producing one, work in this order:
+
+1. **Mark.** Read the whole piece once before changing anything. List every finding, strongest
+   first: the four tests, then the pattern sweep. Check paragraph shapes, not only sentences.
+2. **Rewrite.** Keep every supported claim. Merge, split, reorder. Where the text is generic, add a
+   specific true detail if you have one. If you do not, make it shorter instead of inventing one.
+3. **Confirm the facts survived.** Every number, name, date, quote, and citation comes out exactly as
+   it went in. A voice pass that changes a fact has failed, whatever it did for the prose.
+4. **Read it aloud.** Recheck what survives most often: not-X-but-Y, closers that restate, forced
+   threes, dashes, decorative bold.
+
 ## Counting the findings into the call
 
 One failure is any one of these: a move over budget (count the move, not each instance), a decorative
 ruling, a register row that does not match (length, opener, and closer count separately), a sentence
 cut for changing nothing. The total makes the call, not your patience.
 
-- **Two or fewer.** Edit in place and ship as edited.
+- **Zero.** Return the text unchanged and say so. Do not rewrite for the sake of it.
+- **One or two.** Edit in place and ship as edited.
 - **Exactly three.** The piece needs a rewrite, not an edit. Do not patch it.
 - **Four or more.** Stop. Produce no draft at all. Ask the writer one question about what this piece
   is for, and wait.
@@ -163,15 +220,22 @@ FREQUENCY
   <move>: <count> vs budget <n>  ->  within budget, no change
   Moves over budget: <n>  (<n> instances to flatten)
 
+PATTERN SWEEP
+  <pattern>: "<quoted hit>"  ->  ruled under <which block above>
+  (or: clean. Hits are counted where they are ruled, never twice.)
+
 REGISTER
   Mode: <which one>
   Length: <actual> vs <target>
   Opener: <matches / does not, and what it does instead>
   Closer: <matches / does not>
 
+FACTS
+  <every number, name, date, and quote unchanged | what changed and why | no rewrite, nothing to check>
+
 CALL
   Failures: <n>  (<over-budget moves> + <decorative> + <register rows> + <cut for nothing>)
-  Verdict: <ship as edited, 2 or fewer | rewrite section X, exactly 3 | stop, 4 or more>
+  Verdict: <unchanged, 0 | ship as edited, 1 or 2 | rewrite section X, exactly 3 | stop, 4 or more>
   Question for the writer: <only when stopping, and then no draft>
 ```
 
@@ -213,11 +277,19 @@ FREQUENCY
   Long dash aside 1 vs 2, one-word punch 0  ->  within budget, leave alone.
   Moves over budget: 2  (3 instances to flatten)
 
+PATTERN SWEEP
+  Sayings that sound deep: "Every organization faces moments like this one."  ->  ruled under
+    cut for changing nothing. Counted there, not again.
+  Inflated significance: "not an ending, but a beginning"  ->  ruled under frequency, flattened.
+
 REGISTER
   Mode: delivering bad news, not status update.
   Length: 410 words vs target short. Over.
   Opener: no. Three sentences of gratitude first; the news lands in paragraph three.
   Closer: no. Ends on "we can't wait to see you there," which is uplift, not next steps.
+
+FACTS
+  No rewrite produced, nothing to check.
 
 CALL
   Failures: 8  (2 over-budget moves + 1 decorative + 3 register rows + 2 cut for nothing)
@@ -241,7 +313,8 @@ Everything above governs what you say about the draft, not only the draft. Two b
 ## Boundaries
 
 This pass edits for voice. It does not check whether anything in the draft is true, evaluate whether
-the argument holds, or decide whether the piece should be sent. Those are separate reviews.
+the argument holds, or decide whether the piece should be sent. Those are separate reviews. The one
+fact duty it does carry is narrow: whatever went in, true or not, comes out unchanged.
 
 It will not help a draft evade an AI-detection tool. The goal is prose a specific person would
 actually have written, not prose that scores below a threshold on a classifier.
