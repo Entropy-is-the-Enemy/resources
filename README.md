@@ -25,7 +25,7 @@ Thirty-five skills, grouped by what you are trying to get done. Every one is a `
 
 | Skill | What it does |
 |---|---|
-| [`sounds-like-you`](./skills/sounds-like-you) | Edits a draft so it reads like a specific person wrote it, using four diagnostic tests instead of a banned-word list. |
+| [`sounds-like-you`](./skills/sounds-like-you) | Edits a draft so it reads like a specific person wrote it, using four diagnostic tests and a sweep for common machine-writing patterns instead of a banned-word list. |
 | [`narrative-register`](./skills/narrative-register) | Rewrites named passages in a plain narrative-nonfiction register: concrete nouns, hard verbs, short propulsive rhythm. |
 | [`draw-out`](./skills/draw-out) | Interviews the writer before drafting, one pointed question at a time, until there is real material to write from. |
 | [`bones`](./skills/bones) | Strips a piece down to its load-bearing structure so it can be reused in another format without a rewrite. |
