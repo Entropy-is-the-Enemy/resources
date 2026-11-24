@@ -18,6 +18,6 @@ Apply these to every file you write during setup, starting with the first one. T
 
 None set. In Round E, ask the person whether their organization has a mission or values statement, naming rules, or standards that all work must meet (brand, legal, compliance, faith, safety). Use what they give word for word. If they give none, write "not stated" and move on.
 
-Each organization rule becomes its own numbered house rule, stated in full. A longer text (a mission statement, a values list) is quoted once in the root `_REFERENCE.md`, and the house rule points to it. If a rule depends on a document ("attach the safety checklist"), ask the person to put that document in `_Inbox` so it can be filed.
+Each organization rule becomes its own numbered house rule, stated in full. A mission or values statement is not a rule in itself: quote it once in the root `_REFERENCE.md` and add one house rule, "Work fits the mission statement in the root `_REFERENCE.md`." If a rule depends on a document ("attach the safety checklist"), ask the person to put that document in `_Inbox` so it can be filed.
 
 **For an organization rolling this skill out to its people:** replace the paragraph above with your own rules and any text that must be quoted exactly (a mission statement, product names, required standards). When this section holds rules, Claude applies them from the first file and does not ask the person for them.

@@ -8,7 +8,7 @@ The interview is where the vault gets its shape. Thin answers produce a generic 
 - Round E is part cards and part chat; the round says which. Round F is one card.
 - When a question the round needs gets no answer, record "not stated" and move on. Do not fill the gap yourself.
 - Use what the person has already said to shape later questions and card options. Do not ask what you can already infer; say what you inferred and let them correct it.
-- After each round, write 3 to 6 short lines in chat of what you heard, in their words where you can and adding nothing they did not say, so they can correct it. Put the corrected lines in the progress file under that round. Those lines are what a resumed chat works from.
+- After each round, write a short recap in chat (3 to 6 lines for most rounds; Rounds C and E may need more, and nothing the person said should be dropped to fit) of what you heard, in their words where you can and adding nothing they did not say, so they can correct it. Put the corrected lines in the progress file under that round. Those lines are what a resumed chat works from.
 - The bullets under each round are what the round must cover, not a script. Turn them into natural questions.
 
 ## Round A: Role and responsibilities
@@ -70,13 +70,15 @@ Last, in chat, the writing sample:
 
 1. Ask which kind of message they write most and most want Claude to get right: email, Slack or Teams messages, reports, or something else. Their choice; do not pick for them.
 2. Ask them to paste one or two short samples of that kind, written by them.
-3. Describe their style from the samples in plain words and ask them to confirm or correct the description. Keep the description, not the samples, for memory. If they do not confirm it, it is kept as unverified.
+3. Describe their style from the samples in plain words and ask them to confirm or correct the description. Keep the description, not the samples: it goes in the progress file now and in memory when the build creates it. If they do not confirm it, it is kept as unverified.
 4. Tell them this is a first sketch, not a finished voice. It gets sharper each time they show Claude more of their real messages, and they can do that whenever they like. If a connector for the kind they chose is on in this session (from Phase 0), say that Claude could read a handful of their sent messages to refine it, and ask before reading any.
 5. Mention the `sounds-like-you` skill in one line: it edits a draft so it reads like them, and it works from these samples. The link is in the skill's "Companion skills" table. Offer it; do not install anything.
 
 ## Round F: Memory location (one card)
 
-Explain the two options in the card descriptions, then let them pick:
+Offer the project-memory option only if Phase 0 found a Claude project memory you can write to. If there is none, say in one line that memory will be kept as files in their folder, and why, and skip the card.
+
+Otherwise explain the two options in the card descriptions, then let them pick:
 
 - **Vault `memory/` folder:** durable facts are plain files in the vault (`memory/MEMORY.md` as an index plus one file per topic). The person can open, read and edit them. Claude's project memory holds only a pointer to the vault index.
 - **Claude project memory:** the built-in store. Simpler, but the person cannot see it as files in their folder.

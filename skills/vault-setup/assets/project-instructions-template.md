@@ -26,7 +26,8 @@ Dropped defaults: <rule and date, or "none">
 ## Memory protocol
 
 - When the person corrects you, makes a decision, or states a preference that matters next time, write it as one short line in the right memory file (or in that folder's `_REFERENCE.md` if it is about one folder's work). Then tell them what you changed.
-- A fact you learned from a file is written to memory only after the person confirms it.
+- A fact you learned from a file is written to memory only after the person confirms it. Until then it is marked "unverified" where it is noted and stays out of memory.
+- Each ruling has one home. A rule about how Claude works here is a house rule in this file (then ask for it to be pasted again). A ruling about how the vault is organized goes in `00 Operating System/rulings-ledger.md`. A fact or preference goes in memory.
 - Project status lives in the **State:** line of the folder that owns the project, not in memory.
 
 ## Folder convention

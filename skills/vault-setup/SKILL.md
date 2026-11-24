@@ -33,7 +33,11 @@ These are the person's real work files and the folder has no version history, so
 
 Look for a progress file in the connected folder: `00 Operating System/setup-progress.md`, or `_setup-progress.md` at the folder root (where it lives before Phase 5 builds the folders).
 
-- **Found:** read it, then the newest handoff if there is one (in `00 Operating System/Handoffs/`, or `_setup-handoff-*.md` at the folder root if the build has not happened yet), then the memory index if it exists. Tell the person in two lines where they stopped, and continue at the first phase not ticked. Do not repeat interview questions the progress file already answers.
+- **Found:** read it, then the newest handoff if there is one (in `00 Operating System/Handoffs/`, or `_setup-handoff-*.md` at the folder root if the build has not happened yet), then the memory index if it exists. Tell the person in two lines where they stopped. Then, before continuing at the first phase not ticked:
+  - Redo the Phase 0 tool checks (steps 3 to 5). They describe a session, not the folder, so the earlier answers may no longer hold.
+  - Settle the progress file's Open items that the next phase depends on.
+  - If the next phase is the build, show the approved tree from the progress file and get a one-word confirmation. The approval was given in a chat you cannot see.
+  - Do not repeat interview questions the progress file already answers. If a ticked phase records "not stated" for something that was only an offer (such as explaining a part again), make the offer once and move on.
 - **Not found:** this is a new setup. Open with a short message that covers these points, then begin Phase 0:
   - What happens: you look at their folder, interview them about their job, show a folder plan, build it once they approve, file their first batch of documents with them, then do one real task from their week.
   - They can stop at any point; progress is saved so a new chat picks up where they stopped.
@@ -62,7 +66,7 @@ Read `references/baseline-rules.md` before you write any file, and apply it to e
 Setup is long, and long chats lose early detail. Two things protect against that.
 
 - **Progress file.** At the end of Phase 0, tell the person you are adding one file to track setup, and create `_setup-progress.md` at the folder root from `assets/setup-progress-template.md`. Tick each phase as it closes, add the recap lines it asks for, and add a line under Phase notes for anything a later chat would need. Phase 5 moves it to `00 Operating System/setup-progress.md`.
-- **Handoffs.** Run the `handoff` skill whenever the person stops for the day, any time the chat is getting long or your memory of earlier answers is slipping (say so plainly), and at the end of Phase 9. The ends of Phase 6 and Phase 8 are good places to offer a stop. A small vault can finish in one chat; do not force a restart that is not needed. Save handoffs in `00 Operating System/Handoffs/`. Before Phase 5 that folder does not exist yet, so save the handoff at the folder root as `_setup-handoff-YYYY-MM-DD.md`, next to the progress file; Phase 5 moves it. After a handoff, tell the person to start the next phase in a fresh chat with the handoff prompt.
+- **Handoffs.** Run the `handoff` skill whenever the person stops for the day, any time the chat is getting long or your memory of earlier answers is slipping (say so plainly), and at the end of Phase 9. The ends of Phase 4, Phase 6 and Phase 8 are good places to offer a stop. A small vault can finish in one chat; do not force a restart that is not needed. Save handoffs in `00 Operating System/Handoffs/`. Before Phase 5 that folder does not exist yet, so save the handoff at the folder root as `_setup-handoff-YYYY-MM-DD.md`, next to the progress file; Phase 5 moves it, keeping its name. A second handoff on the same day adds a letter (`-b`). After a handoff, tell the person what state the folder is in (for example "nothing is built yet; two new files hold your progress") and to start the next phase in a fresh chat with the handoff prompt. After Phase 9 there is no next phase: the prompt is a general one for continuing work in the vault.
 - **No handoff skill.** Write the handoff by hand in the same place and under the same name rule: `_setup-handoff-YYYY-MM-DD.md` at the folder root before Phase 5, `handoff-YYYY-MM-DD-phase-N.md` in `00 Operating System/Handoffs/` after it. It holds: where setup stands, what was decided in this chat, the open items, and a short prompt the person can paste into a new chat that says to continue the vault setup and read the progress file first.
 
 ## The phases
@@ -84,10 +88,10 @@ Work through the phases in order. Do not skip ahead.
 
 ### Phase 0: Look before touching (no questions yet)
 
-1. Find the connected folder and list its top two levels. Tell the person in short lines what is already there.
+1. Find the connected folder and list its top two levels. Tell the person in short lines what is already there. List only: do not open the files yet, and do not create test files to probe the folder. If a file name suggests pay, personnel, health or personal details of customers, donors or clients, name it and say you will ask about it before anything is copied or moved.
 2. Say in one line where the folder sits: on the computer's own drive, on a network drive, or in a synced folder (OneDrive, SharePoint, Google Drive, Dropbox). If you cannot tell from the path, ask. If it is a network drive, say so plainly and ask before going on. Claude may not work reliably there; a folder on the computer's own drive, with the network copy kept as the backup, may be the better setup.
-3. Check your tools, one line each: can you run commands in that folder, or only read and write files? Is Python 3 available (try `python3 --version`, `python --version`, then `py --version`; work computers often do not have it)? Which shell do commands run in? Record the Python command that worked and the shell in the progress file; every later command, including the ones you write into the vault's own files, uses those and not the examples printed in this skill.
-4. Check whether the `handoff` skill is available in this session.
+3. Check your tools, one line each: can you run commands in that folder, or only read and write files? Is Python 3 available (try `python3 --version`, `python --version`, then `py --version`; work computers often do not have it)? Which shell do commands run in? Record the Python command that worked, the shell and its file-hash command in the progress file; every later command, including the ones you write into the vault's own files, uses those and not the examples printed in this skill.
+4. Check whether the `handoff` skill is available in this session, and whether the session has a Claude project memory you can write to (Round F depends on it).
 5. List the connectors this session has (email, chat, calendar, file storage, CRM and so on), in one line.
 6. If the folder already holds files, do not move them. Phase 5 handles them.
 7. Create the progress file (see above) and record what you found.
@@ -142,6 +146,8 @@ You cannot edit a Claude project's settings. Paste the full text of `00 Operatin
 
 If the person is not working in a Claude project (for example in Claude Code, where there is no instructions field), skip the paste: the root `CLAUDE.md` already points every session at the file. Say so in one line. Tick the progress file.
 
+From here on, any change to `project-instructions.md` (a new house rule in Phase 8, for example) ends with asking the person to paste it again.
+
 ### Phase 7: Summary and the inbox drop (visual, in chat)
 
 Show a final summary visual: the tree as built, the core files created, the staged files waiting for their trigger, and where memory lives. Then tell the person, plainly:
@@ -160,7 +166,7 @@ One addition for this first pass. When the pass closes, suggest in one line each
 
 1. **Pick:** with a question card, ask the person to pick one task from their week that the filed files can support. Offer 2 to 4 small ones you can see in the files, each doable in one sitting; a slice of a Phase 8 suggestion can be one of them. They can also name their own.
 2. **Goal:** ask in chat for the task as one goal: what done looks like and which files it needs.
-3. **Do it:** read memory and the relevant folder's `_REFERENCE.md` first, then do the task. Put the source (a backticked file path) next to every claim. If no file supports something, say so. If a file seems to contradict how the person framed the task, do what they asked and flag the mismatch. Save the result in the folder that owns the work.
+3. **Do it:** read memory and the relevant folder's `_REFERENCE.md` first, then do the task. Put the source (a backticked file path) next to every claim. If no file supports something, say so. If a file seems to contradict how the person framed the task, do what they asked and flag the mismatch. Save the result in the folder that owns the work; a new subfolder gets its `_REFERENCE.md` and its index (`--create`). When the result is something the person will send or print, keep its text clean and list the sources under a divider below it. Where a sentence needs a fact no file gives, leave a marked gap like `[needs: who signs for the parish]` and list the gaps; a gap the person fills in a minute is better than a smooth line that hides what is missing.
 4. **Check one claim:** ask the person to open one source file and confirm it says what you said. Name a claim worth checking if they ask. This is how they learn the habit behind the "verify AI output" rule.
 5. **Record:** write any correction they give per the memory protocol; name any new file in its folder's `_REFERENCE.md`; run the index script and `--check`.
 6. Tick the progress file and run the handoff skill so their next session starts warm.
