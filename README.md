@@ -10,6 +10,7 @@ If you follow [Entropy is the Enemy](https://entropyistheenemy.com), this is the
 |---|---|
 | [`skills/`](./skills) | Portable Claude skills, self-contained `SKILL.md` folders you can drop into Claude Cowork or Claude Code. |
 | [`resources/`](./resources) | Guides, templates, handouts, and reference docs that stand alone (no skill runtime required). |
+| [`tests/`](./tests) | Repeatable dry runs for skills that build things. One so far, for `vault-setup`. |
 
 ## What a "skill" is
 

@@ -35,7 +35,9 @@ Look for a progress file in the connected folder: `00 Operating System/setup-pro
 
 - **Found:** read it, then the newest handoff if there is one (in `00 Operating System/Handoffs/`, or `_setup-handoff-*.md` at the folder root if the build has not happened yet), then the memory index if it exists. Tell the person in two lines where they stopped. Then, before continuing at the first phase not ticked:
   - Redo the Phase 0 tool checks (steps 3 to 5). They describe a session, not the folder, so the earlier answers may no longer hold.
-  - Settle the progress file's Open items that the next phase depends on.
+  - Settle the progress file's Open items that the next phase depends on. To know which, read that phase's "Read first" file now (for the build, `references/build.md`).
+  - Do not ask again about a sensitive-looking file the progress file already records a ruling for.
+  - If the progress file and the handoff disagree, say so and ask; until the person answers, the more careful of the two holds.
   - If the next phase is the build, show the approved tree from the progress file and get a one-word confirmation. The approval was given in a chat you cannot see.
   - Do not repeat interview questions the progress file already answers. If a ticked phase records "not stated" for something that was only an offer (such as explaining a part again), make the offer once and move on.
 - **Not found:** this is a new setup. Open with a short message that covers these points, then begin Phase 0:
@@ -59,7 +61,7 @@ For visuals, use an inline visual or diagram tool if you have one; otherwise a M
 
 ## House rules
 
-Read `references/baseline-rules.md` before you write any file, and apply it to every file you write. It holds five default rules (no em dashes, absolute dates, exact names, verify AI output, plain Markdown only) and a section for the organization's own rules. The person adds their rules in the interview. Rules stack in that order: defaults, organization, person.
+Read `references/baseline-rules.md` before you write any file, and apply it to every file you write. It holds five default rules (no em dashes, absolute dates, exact names, verify AI output, plain Markdown only) and a section for the organization's own rules. The person adds their rules in the interview. Rules stack in that order: defaults, organization, person. Where two conflict, the later one wins, and the project instructions say so next to the rule (for example a person's "donors by ID, not name" over the default on exact names).
 
 ## Progress file and handoffs
 
@@ -86,21 +88,22 @@ Work through the phases in order. Do not skip ahead.
 | 8 | First inbox pass | the vault's `_Inbox/_REFERENCE.md` |
 | 9 | First real task | (below) |
 
-### Phase 0: Look before touching (no questions yet)
+### Phase 0: Look before touching (one question at most)
 
-1. Find the connected folder and list its top two levels. Tell the person in short lines what is already there. List only: do not open the files yet, and do not create test files to probe the folder. If a file name suggests pay, personnel, health or personal details of customers, donors or clients, name it and say you will ask about it before anything is copied or moved.
+1. Find the connected folder and list its top two levels. Tell the person in short lines what is already there. List only: do not open the files yet, and do not create test files to probe the folder. If a file name suggests pay, personnel, health or personal details of customers, donors or clients, name it and say you will ask about it at the end of this phase, before anything is copied or moved. Do not open, read or hash such a file.
 2. Say in one line where the folder sits: on the computer's own drive, on a network drive, or in a synced folder (OneDrive, SharePoint, Google Drive, Dropbox). If you cannot tell from the path, ask. If it is a network drive, say so plainly and ask before going on. Claude may not work reliably there; a folder on the computer's own drive, with the network copy kept as the backup, may be the better setup.
 3. Check your tools, one line each: can you run commands in that folder, or only read and write files? Is Python 3 available (try `python3 --version`, `python --version`, then `py --version`; work computers often do not have it)? Which shell do commands run in? Record the Python command that worked, the shell and its file-hash command in the progress file; every later command, including the ones you write into the vault's own files, uses those and not the examples printed in this skill.
-4. Check whether the `handoff` skill is available in this session, and whether the session has a Claude project memory you can write to (Round F depends on it).
+4. Check whether the `handoff` skill is available in this session, whether the person is working in a Claude project (Phase 6 depends on it; ask in Phase 2 if you cannot tell), and whether the session has a Claude project memory you can write to (Round F depends on it).
 5. List the connectors this session has (email, chat, calendar, file storage, CRM and so on), in one line.
 6. If the folder already holds files, do not move them. Phase 5 handles them.
 7. Create the progress file (see above) and record what you found.
+8. If step 1 named any sensitive-looking file, ask about each one now, the only question of this phase: leave it where it is and out of everything (a **set-aside file**: never opened, copied or moved), or treat it like the rest. Say that a set-aside file's name will still show in the vault's root file list for as long as it sits in the folder; only its name, never its contents. If the person is not sure about a file, or you are not sure whether a name counts as sensitive, the file is held as set aside until they rule. Record each ruling in the progress file.
 
 ### Phase 1: Get the handoff skill
 
 Explain why in two sentences: setup is long, and the `handoff` skill writes a handoff document and a ready-to-paste prompt so a fresh chat continues exactly where this one stopped.
 
-If `handoff` is not available, walk the person through turning it on from the skills list in their Claude settings. It is not something to build. If you are not certain of the exact menu path in their app, say so and describe what to look for. Wait until they confirm it is on.
+If `handoff` is not available, walk the person through turning it on from the skills list in their Claude settings. It is not something to build. If you are not certain of the exact menu path in their app, say so and describe what to look for. Wait until they confirm it is on. If they are not sure how, or would rather not do it now, do not press: continue, write handoffs by hand, and say in one plain line at the first stop that the skill can still be turned on later.
 
 If it is not in their organization's list, give them the public copy: https://github.com/Entropy-is-the-Enemy/resources/tree/main/skills/handoff. They download the `handoff` folder, zip it, and add it under Skills in their Claude settings. Tell them to read the `SKILL.md` first; a skill is instructions Claude will follow, so it deserves the same care as installing software. If their organization does not allow adding skills, or it still does not appear, continue, and write handoffs by hand at the checkpoints (see "Progress file and handoffs").
 
@@ -110,7 +113,7 @@ Follow `references/interview.md`. Most of it is open questions in chat; the few 
 
 ### Phase 3: How the vault works (visual, in chat)
 
-Show one diagram of the operating system with a two-line caption per part:
+Show one diagram of the operating system with a caption of one or two short lines per part:
 
 - `_Inbox/`: the only front door. New files go here; Claude files them out with the person.
 - `_REFERENCE.md` in every working folder: what the folder is for and its current state, written by hand.
@@ -118,7 +121,7 @@ Show one diagram of the operating system with a two-line caption per part:
 - `memory/` (or project memory, per the Round F answer): durable facts about the person and their work.
 - `00 Operating System/`: rules, handoffs, templates, manifests, logs.
 - Reorg manifests: the undo record for every move, rename or delete, because the vault has no version history.
-- `CLAUDE.md` plus the project instructions: the rules every session reads first.
+- `CLAUDE.md` plus the project instructions: the rules every session reads first. (If the person is not in a Claude project, say `CLAUDE.md` and the rules file it points to.)
 
 Ask: "Does this make sense, or should I explain a part?" Wait for the reply.
 
@@ -127,24 +130,24 @@ Ask: "Does this make sense, or should I explain a part?" Wait for the reply.
 From the interview answers, propose the top-level folders:
 
 - `00 Operating System` always comes first.
-- Then the numbered subject folders, `01` to `NN`: two-digit number, a space, then a name drawn from this person's job (the work they own, the people they serve, the reports they produce). Most jobs need 6 to 11; a narrow role may need fewer, and a folder with nothing to hold should not be added to reach a count. Order them by how often the person will use them, judged from the Round B cadence.
+- Then the numbered subject folders, `01` to `NN`: two-digit number, a space, then a name drawn from this person's job (the work they own, the people they serve, the reports they produce). Most jobs need 6 to 11; a narrow role may need fewer, and a folder with nothing to hold should not be added to reach a count. Order them by how much of the person's working time each holds, judged from Round B (what recurs and what eats the most time), and say the order is a first guess they can change.
 - Plus `_Inbox`, `memory` (only if they chose the vault option in Round F), and `Archive`.
 - Under each subject folder, at most 2 to 4 likely subfolders, marked "create when needed".
-- Folders that were already there in Phase 0 are not part of the tree. Say in one line that Phase 5 will copy them first and then ask where each goes.
+- Folders that were already there in Phase 0 are not part of the tree. Say in one line that Phase 5 will copy them first (leaving out any set-aside file from Phase 0) and then ask where each goes.
 
 Example names, for shape only and not to copy: `01 Leadership & Planning`, `02 Campaigns`, `03 Monthly Reporting`, `04 Customers`, `05 Vendors & Partners`.
 
-Show it as a tree with one line of purpose per folder. Ask the person to reply "approved" or say what to rename, merge, split or reorder. Iterate until they approve. Build nothing before that.
+Show it as a tree with one line of purpose per folder. The tree shows folders only; the files setup adds at the root (`CLAUDE.md`, `_REFERENCE.md`, `_INDEX.md`) were covered in Phase 3. Ask the person to reply "approved" or say what to rename, merge, split or reorder. Iterate until they approve. Build nothing before that.
 
 ### Phase 5: Build
 
-Follow `references/build.md`. Say what you are doing as you go. The phase closes only when the index check and the vault check both pass. Go straight on to Phase 6; it takes two minutes and is a better place to stop.
+Follow `references/build.md`. Say what you are doing as you go. The phase closes only when the index check and the vault check both pass. Go straight on to Phase 6; it is short and is a better place to stop.
 
 ### Phase 6: Paste the project instructions
 
 You cannot edit a Claude project's settings. Paste the full text of `00 Operating System/project-instructions.md` in chat in one code block, tell the person where to paste it (this Claude project's instructions field), and ask them to reply "pasted". Explain in one line that later edits happen in the file first and are then pasted again, so there is one source.
 
-If the person is not working in a Claude project (for example in Claude Code, where there is no instructions field), skip the paste: the root `CLAUDE.md` already points every session at the file. Say so in one line. Tick the progress file.
+If the person is not working in a Claude project (Phase 0 recorded this; for example Claude Code, where there is no instructions field), skip the paste: the root `CLAUDE.md` already points every session at the file. Say so in one line. Tick the progress file.
 
 From here on, any change to `project-instructions.md` (a new house rule in Phase 8, for example) ends with asking the person to paste it again.
 
@@ -160,15 +163,15 @@ If Phase 5 already moved files into `_Inbox`, say so: those are waiting and coun
 
 Follow the playbook you built in Phase 5, `_Inbox/_REFERENCE.md`, step by step. Using the vault's own copy on its first real run is the test that the playbook works without this skill.
 
-One addition for this first pass. When the pass closes, suggest in one line each up to 3 recurring tasks from the Round B answers that could become skills later. Suggest only tasks that pass all three tests: the task repeats, it takes several steps or several files, and the person said they would gladly stop doing it by hand. Do not build them now. A task becomes a skill only after it has worked twice by hand, because a skill written before the task is understood locks in the wrong steps. Then tick the progress file.
+One addition for this first pass. When the pass closes, suggest in one line each up to 3 recurring tasks from the Round B answers that could become skills later. Suggest only tasks that pass all three tests: the task repeats, it takes several steps or several files, and the person said they would gladly stop doing it by hand. Do not build them now. A task becomes a skill only after it has worked twice by hand, because a skill written before the task is understood locks in the wrong steps. Then run the vault check from this skill's folder (`scripts/check-vault.py`, with the vault path), fix or explain what it reports, and tick the progress file.
 
 ### Phase 9: First real task (the payoff)
 
 1. **Pick:** with a question card, ask the person to pick one task from their week that the filed files can support. Offer 2 to 4 small ones you can see in the files, each doable in one sitting; a slice of a Phase 8 suggestion can be one of them. They can also name their own.
 2. **Goal:** ask in chat for the task as one goal: what done looks like and which files it needs.
-3. **Do it:** read memory and the relevant folder's `_REFERENCE.md` first, then do the task. Put the source (a backticked file path) next to every claim. If no file supports something, say so. If a file seems to contradict how the person framed the task, do what they asked and flag the mismatch. Save the result in the folder that owns the work; a new subfolder gets its `_REFERENCE.md` and its index (`--create`). When the result is something the person will send or print, keep its text clean and list the sources under a divider below it. Where a sentence needs a fact no file gives, leave a marked gap like `[needs: who signs for the parish]` and list the gaps; a gap the person fills in a minute is better than a smooth line that hides what is missing.
+3. **Do it:** read memory and the relevant folder's `_REFERENCE.md` first, then do the task. Put the source (a backticked file path) next to every claim. If no file supports something, say so. If a file seems to contradict how the person framed the task, do what they asked and flag the mismatch. Save the result in the folder that owns the work, in one of the tree's "create when needed" subfolders if it fits one; a new subfolder gets its `_REFERENCE.md` and its index (`--create`). When the result is something the person will send or print, keep its text clean and list the sources under a divider below it. Where a sentence needs a fact no file gives, leave a marked gap like `[needs: who signs for the parish]` and list the gaps; a gap the person fills in a minute is better than a smooth line that hides what is missing.
 4. **Check one claim:** ask the person to open one source file and confirm it says what you said. Name a claim worth checking if they ask. This is how they learn the habit behind the "verify AI output" rule.
-5. **Record:** write any correction they give per the memory protocol; name any new file in its folder's `_REFERENCE.md`; run the index script and `--check`.
+5. **Record:** write any correction they give per the memory protocol (a confirmed number or status is project state and goes in the folder's `_REFERENCE.md`, not memory); name any new file in its folder's `_REFERENCE.md`; run the index script and `--check`, then the vault check.
 6. Tick the progress file and run the handoff skill so their next session starts warm.
 
 ## Companion skills
@@ -188,4 +191,4 @@ Three public skills pair with the vault. None is required; setup works without t
 - `references/build.md`: what to create, in what order, and how to close the build. Read at Phase 5.
 - `assets/`: templates to copy and fill in (references, project instructions, `CLAUDE.md`, inbox playbook, staged-file spec, reorg manifest, progress file). `references/build.md` says which goes where.
 - `scripts/vault-index.py`: writes every `_INDEX.md`. Copy it into the vault in Phase 5 and run it there; do not rewrite it.
-- `scripts/check-vault.py`: checks a built vault against this setup's rules. Run it from this skill's folder with the vault path.
+- `scripts/check-vault.py`: checks a vault against this setup's rules, including subfolders and whether each file is named in its folder's reference. Run it from this skill's folder with the vault path, at the end of Phases 5, 8 and 9.

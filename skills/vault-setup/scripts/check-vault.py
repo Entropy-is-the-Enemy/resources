@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check a freshly built vault against the vault-setup rules.
+"""Check a vault against the vault-setup rules, after the build and after filing.
 
 Usage:
   python3 check-vault.py "<path to the vault root>"
@@ -27,7 +27,16 @@ The checklist (walk it by hand if Python is not available):
  10. No reorg manifest sits at the 00 Operating System/ root.
  11. Setup files follow house style: no em dashes (unless the project
      instructions list that rule under "Dropped defaults:"), no [[wikilinks]].
+ 12. A subfolder with a _REFERENCE.md or an _INDEX.md has both, and they
+     pass checks 7 and 8. Subfolders of Archive/ are left as they were.
+ 13. Every file is named in its folder's _REFERENCE.md, covered by that
+     reference's Recurring files line, or sits in a subfolder the reference
+     names (WARNING). _Inbox/, memory/ and Archive/pre-setup-copy-* are
+     left out.
+ 14. A staged file that now exists has had its row removed from os-spec.md
+     (WARNING).
 """
+import fnmatch
 import os
 import re
 import sys
@@ -60,6 +69,9 @@ def read(path):
             return fh.read()
     except UnicodeDecodeError:
         warn("%s is not UTF-8 text; skipped its content checks" % path)
+        return ""
+    except OSError as exc:
+        warn("%s could not be read (%s); skipped its content checks" % (path, exc.strerror or exc))
         return ""
 
 
@@ -101,6 +113,113 @@ def check_index(vault, rel):
     text = read(os.path.join(vault, rel))
     if "<!-- files:start -->" not in text or "<!-- files:end -->" not in text:
         err("%s is missing its files:start / files:end marker lines; recreate it with vault-index.py --create" % rel)
+
+
+SKIP_NAMES = ("_REFERENCE.md", "_INDEX.md", "desktop.ini", "Thumbs.db")
+BACKTICKED = re.compile(r"`([^`\n]+)`")
+
+
+def recurring_patterns(text):
+    for line in text.splitlines():
+        if line.startswith("**Recurring files:**"):
+            return BACKTICKED.findall(line)
+    return []
+
+
+def named(name, text):
+    """True if name appears in text as a whole name, not as the tail of a longer one."""
+    return re.search(r"(?<![\w./-])" + re.escape(name) + r"(?![\w-])", text) is not None
+
+
+def walk_owned(vault, folder):
+    """Files a folder's reference answers for: its own, plus those in subfolders
+    that have no _REFERENCE.md of their own. Paths relative to the folder."""
+    base = os.path.join(vault, folder) if folder else vault
+    out = []
+    for dirpath, dirnames, filenames in os.walk(base):
+        rel_dir = os.path.relpath(dirpath, base)
+        keep = []
+        for d in sorted(dirnames):
+            if d.startswith(".") or d == "__pycache__":
+                continue
+            if not folder:
+                continue  # the root reference answers only for files at the root
+            if folder == "Archive" and rel_dir == "." and d.startswith("pre-setup-copy-"):
+                continue
+            if os.path.isfile(os.path.join(dirpath, d, "_REFERENCE.md")):
+                continue
+            keep.append(d)
+        dirnames[:] = keep
+        for name in sorted(filenames):
+            if name in SKIP_NAMES or name.startswith(".") or name.startswith("~$"):
+                continue
+            out.append(name if rel_dir == "." else rel_dir.replace(os.sep, "/") + "/" + name)
+    return out
+
+
+def check_named(vault, folder):
+    """13. Every file is named in, or covered by, the folder's reference."""
+    ref = (folder + "/" if folder else "") + "_REFERENCE.md"
+    text = read(os.path.join(vault, ref))
+    patterns = recurring_patterns(text)
+    missing = []
+    for rel in walk_owned(vault, folder):
+        base = rel.split("/")[-1]
+        parts = rel.split("/")[:-1]
+        # A file directly in the folder is named by its file name; one deeper is
+        # named by its path, so the same name in two subfolders is not confused.
+        if named(rel if parts else base, text):
+            continue
+        if any(fnmatch.fnmatch(rel, p) or fnmatch.fnmatch(base, p) for p in patterns):
+            continue
+        # Or the reference names a subfolder that holds it, relative to this
+        # folder or to the vault root.
+        prefixes = ["/".join(parts[: i + 1]) for i in range(len(parts))]
+        if any("`%s/`" % p in text or (folder and "`%s/%s/`" % (folder, p) in text) for p in prefixes):
+            continue
+        missing.append(rel)
+    if missing:
+        more = "" if len(missing) <= 5 else " and %d more" % (len(missing) - 5)
+        warn("%s does not name: %s%s" % (ref, ", ".join(missing[:5]), more))
+
+
+def check_subfolders(vault, top, setup_files):
+    """12. Subfolders that carry a reference or an index carry both. Returns them."""
+    found = []
+    for dirpath, dirnames, filenames in os.walk(os.path.join(vault, top)):
+        dirnames[:] = sorted(d for d in dirnames if not d.startswith("."))
+        rel = os.path.relpath(dirpath, vault).replace(os.sep, "/")
+        if rel == top:
+            continue
+        has_ref = os.path.isfile(os.path.join(dirpath, "_REFERENCE.md"))
+        has_idx = os.path.isfile(os.path.join(dirpath, "_INDEX.md"))
+        if not (has_ref or has_idx):
+            continue
+        if has_ref:
+            setup_files.append(rel + "/_REFERENCE.md")
+            check_reference(vault, rel + "/_REFERENCE.md")
+            found.append(rel)
+        else:
+            err("%s has an _INDEX.md but no _REFERENCE.md" % rel)
+        if has_idx:
+            check_index(vault, rel + "/_INDEX.md")
+        else:
+            err("%s has a _REFERENCE.md but no _INDEX.md; create it with vault-index.py --create" % rel)
+    return found
+
+
+def check_staged(vault, setup_files):
+    """14. Staged files that exist are out of os-spec.md and get the style checks."""
+    os_dir = os.path.join(vault, OS_FOLDER)
+    spec = read(os.path.join(os_dir, "os-spec.md")) if os.path.isfile(os.path.join(os_dir, "os-spec.md")) else ""
+    core = ("_REFERENCE.md", "_INDEX.md", "project-instructions.md", "os-spec.md", "setup-progress.md")
+    for name in sorted(os.listdir(os_dir)):
+        full = os.path.join(os_dir, name)
+        if os.path.isfile(full) and name.endswith(".md") and name not in core and not name.startswith("reorg-manifest"):
+            setup_files.append(OS_FOLDER + "/" + name)
+        row = "| `%s%s` |" % (name, "/" if os.path.isdir(full) else "")
+        if row in spec:
+            warn("%s/%s exists but os-spec.md still lists it as staged; remove its row" % (OS_FOLDER, name))
 
 
 def dropped_defaults(vault):
@@ -184,6 +303,7 @@ def main():
 
     # 6 to 8. Every top-level folder
     subject_folders = 0
+    referenced = []
     for name in sorted(os.listdir(vault)):
         if name.startswith(".") or not os.path.isdir(os.path.join(vault, name)):
             continue
@@ -194,7 +314,7 @@ def main():
         if re.match(r"^\d\d ", name) and name != OS_FOLDER:
             subject_folders += 1
         elif name not in (OS_FOLDER, "Archive"):
-            warn("top-level folder '%s' is not part of the vault tree; ask the person whether it moves to Archive/ or stays" % name)
+            warn("top-level folder '%s' is not part of the vault tree; fine if it holds a set-aside file, otherwise ask the person whether it moves to Archive/ or stays" % name)
             continue
         ref, idx = name + "/_REFERENCE.md", name + "/_INDEX.md"
         if need_file(vault, ref):
@@ -202,6 +322,11 @@ def main():
             check_reference(vault, ref)
         if need_file(vault, idx):
             check_index(vault, idx)
+        referenced.append(name)
+        # Archive holds what was there before, kept as it was; its subfolders
+        # are not held to the vault's rules.
+        if name != "Archive":
+            referenced.extend(check_subfolders(vault, name, setup_files))
     if os.path.isfile(os.path.join(vault, "_REFERENCE.md")):
         check_reference(vault, "_REFERENCE.md")
     if os.path.isfile(os.path.join(vault, "_INDEX.md")):
@@ -210,6 +335,17 @@ def main():
         err("no numbered subject folders found (expected 01 to NN)")
     elif subject_folders > 11:
         warn("%d numbered subject folders; more than 11 is hard to scan (fine if the person approved it)" % subject_folders)
+
+    # 13. Files named in their folder's reference
+    if os.path.isfile(os.path.join(vault, "_REFERENCE.md")):
+        check_named(vault, "")
+    for folder in referenced:
+        if os.path.isfile(os.path.join(vault, folder, "_REFERENCE.md")):
+            check_named(vault, folder)
+
+    # 14. Staged files
+    if os.path.isdir(os.path.join(vault, OS_FOLDER)):
+        check_staged(vault, setup_files)
 
     # 9 and 11. Style and leftovers in the files setup wrote
     dropped = dropped_defaults(vault)
@@ -221,7 +357,7 @@ def main():
     for msg in warnings:
         print("WARNING  " + msg)
     print("summary: %d error(s), %d warning(s), %d setup file(s) checked" % (len(errors), len(warnings), len(setup_files)))
-    print("checked: core files, top-level references and indexes, memory. Not checked: manifests, handoffs, logs, subfolders, filed documents.")
+    print("checked: core files, references and indexes at every level, memory, staged files, and that each file is named in its folder's reference. Not checked: what manifests, handoffs, logs and filed documents say.")
     sys.exit(1 if errors else 0)
 
 
