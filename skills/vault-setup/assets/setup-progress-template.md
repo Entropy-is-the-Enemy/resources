@@ -28,14 +28,20 @@ Claude keeps this file during setup so a new chat can pick up where the last one
 
 - Folder location (own drive, network drive, synced folder):
 - Can run commands:
-- Python:
+- Python (the command that worked):
+- Shell and file-hash command:
 - Handoff skill:
+- Working in a Claude project (yes, no, not known):
+- Claude project memory you can write to:
 - Connectors:
 - Files already in the folder:
+- Sensitive-looking files and the ruling on each (set aside, or treat like the rest):
+
+The tool lines describe one session. A resumed chat checks them again.
 
 ## Interview recap
 
-The confirmed recap lines from each round, in the person's words.
+The confirmed recap lines from each round, in the person's words. A line the person did not confirm ends with "(not confirmed)".
 
 ### Round A: Role
 
