@@ -28,7 +28,7 @@ The checklist (walk it by hand if Python is not available):
  11. Setup files follow house style: no em dashes (unless the project
      instructions list that rule under "Dropped defaults:"), no [[wikilinks]].
  12. A subfolder with a _REFERENCE.md or an _INDEX.md has both, and they
-     pass checks 7 and 8.
+     pass checks 7 and 8. Subfolders of Archive/ are left as they were.
  13. Every file is named in its folder's _REFERENCE.md, covered by that
      reference's Recurring files line, or sits in a subfolder the reference
      names (WARNING). _Inbox/, memory/ and Archive/pre-setup-copy-* are
@@ -69,6 +69,9 @@ def read(path):
             return fh.read()
     except UnicodeDecodeError:
         warn("%s is not UTF-8 text; skipped its content checks" % path)
+        return ""
+    except OSError as exc:
+        warn("%s could not be read (%s); skipped its content checks" % (path, exc.strerror or exc))
         return ""
 
 
@@ -123,6 +126,11 @@ def recurring_patterns(text):
     return []
 
 
+def named(name, text):
+    """True if name appears in text as a whole name, not as the tail of a longer one."""
+    return re.search(r"(?<![\w./-])" + re.escape(name) + r"(?![\w-])", text) is not None
+
+
 def walk_owned(vault, folder):
     """Files a folder's reference answers for: its own, plus those in subfolders
     that have no _REFERENCE.md of their own. Paths relative to the folder."""
@@ -157,12 +165,17 @@ def check_named(vault, folder):
     missing = []
     for rel in walk_owned(vault, folder):
         base = rel.split("/")[-1]
-        if base in text:
+        parts = rel.split("/")[:-1]
+        # A file directly in the folder is named by its file name; one deeper is
+        # named by its path, so the same name in two subfolders is not confused.
+        if named(rel if parts else base, text):
             continue
         if any(fnmatch.fnmatch(rel, p) or fnmatch.fnmatch(base, p) for p in patterns):
             continue
-        parts = rel.split("/")[:-1]
-        if any("`%s/`" % "/".join(parts[: i + 1]) in text or "`%s/`" % parts[i] in text for i in range(len(parts))):
+        # Or the reference names a subfolder that holds it, relative to this
+        # folder or to the vault root.
+        prefixes = ["/".join(parts[: i + 1]) for i in range(len(parts))]
+        if any("`%s/`" % p in text or (folder and "`%s/%s/`" % (folder, p) in text) for p in prefixes):
             continue
         missing.append(rel)
     if missing:
@@ -174,11 +187,12 @@ def check_subfolders(vault, top, setup_files):
     """12. Subfolders that carry a reference or an index carry both. Returns them."""
     found = []
     for dirpath, dirnames, filenames in os.walk(os.path.join(vault, top)):
-        dirnames[:] = sorted(d for d in dirnames if not d.startswith(".") and not (top == "Archive" and d.startswith("pre-setup-copy-")))
+        dirnames[:] = sorted(d for d in dirnames if not d.startswith("."))
         rel = os.path.relpath(dirpath, vault).replace(os.sep, "/")
         if rel == top:
             continue
-        has_ref, has_idx = "_REFERENCE.md" in filenames, "_INDEX.md" in filenames
+        has_ref = os.path.isfile(os.path.join(dirpath, "_REFERENCE.md"))
+        has_idx = os.path.isfile(os.path.join(dirpath, "_INDEX.md"))
         if not (has_ref or has_idx):
             continue
         if has_ref:
@@ -309,7 +323,10 @@ def main():
         if need_file(vault, idx):
             check_index(vault, idx)
         referenced.append(name)
-        referenced.extend(check_subfolders(vault, name, setup_files))
+        # Archive holds what was there before, kept as it was; its subfolders
+        # are not held to the vault's rules.
+        if name != "Archive":
+            referenced.extend(check_subfolders(vault, name, setup_files))
     if os.path.isfile(os.path.join(vault, "_REFERENCE.md")):
         check_reference(vault, "_REFERENCE.md")
     if os.path.isfile(os.path.join(vault, "_INDEX.md")):

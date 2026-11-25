@@ -6,6 +6,8 @@ set -eu
 S="${1:?give a target folder}"
 [ -e "$S" ] && [ -n "$(ls -A "$S" 2>/dev/null)" ] && { echo "target is not empty: $S" >&2; exit 1; }
 HERE="$(cd "$(dirname "$0")" && pwd)"
+mkdir -p "$S"
+S="$(cd "$S" && pwd)"
 mkdir -p "$S/Dana Work/Old Reports" "$S/Dana Work/misc" "$S/to-drop" "$S/run"
 cp -R "$HERE/../../skills/vault-setup" "$S/skill"
 cp "$HERE/persona.md" "$S/persona.md"

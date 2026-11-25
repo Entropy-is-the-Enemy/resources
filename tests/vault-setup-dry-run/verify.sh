@@ -25,10 +25,28 @@ for f in "$S"/to-drop/*; do
 done
 [ "$fail" = 0 ] && say PASS "every dropped file is in the vault once, under its own name"
 
-grep -rl "5,740" "$V" --include="*.md" | grep -v "board-report-2026-10-draft.md" | grep -q . \
-  && say PASS "the 5,740 vs 5,470 mismatch is written down somewhere" || say FAIL "no note mentions the 5,740 mismatch"
-if grep -rlE '(^|[^0-9])5,740' "$V"/0[1-9]*/ --include="*.md" 2>/dev/null | xargs grep -L "5,470" 2>/dev/null | grep -v "board-report-2026-10-draft.md" | grep -q .; then
-  say FAIL "a note uses 5,740 without the corrected 5,470"
-fi
+# A note outside the draft itself must record both totals, and no note may carry
+# the wrong total alone.
+python3 - "$V" <<'PY' && say PASS "the 5,740 vs 5,470 mismatch is recorded, and no note uses 5,740 alone" || say FAIL "the 5,740 mismatch is missing, or a note uses 5,740 without 5,470"
+import io, os, sys
+both, wrong_only = 0, []
+for dirpath, dirnames, filenames in os.walk(sys.argv[1]):
+    dirnames[:] = [d for d in dirnames if not d.startswith("pre-setup-copy-")]
+    for name in filenames:
+        if not name.endswith(".md") or name == "board-report-2026-10-draft.md":
+            continue
+        try:
+            text = io.open(os.path.join(dirpath, name), encoding="utf-8", errors="replace").read()
+        except OSError:
+            continue
+        if "5,740" in text:
+            if "5,470" in text:
+                both += 1
+            else:
+                wrong_only.append(os.path.join(dirpath, name))
+for path in wrong_only:
+    print("uses 5,740 without 5,470: " + path)
+sys.exit(0 if both and not wrong_only else 1)
+PY
 diff -rq "$S/skill" "$(cd "$(dirname "$0")" && pwd)/../../skills/vault-setup" >/dev/null && say PASS "skill copy untouched" || say FAIL "skill copy differs from the repo"
 exit $fail
