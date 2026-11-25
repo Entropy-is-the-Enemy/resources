@@ -221,6 +221,7 @@ def main():
     for msg in warnings:
         print("WARNING  " + msg)
     print("summary: %d error(s), %d warning(s), %d setup file(s) checked" % (len(errors), len(warnings), len(setup_files)))
+    print("checked: core files, top-level references and indexes, memory. Not checked: manifests, handoffs, logs, subfolders, filed documents.")
     sys.exit(1 if errors else 0)
 
 

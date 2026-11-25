@@ -51,7 +51,7 @@ The confirmed recap lines from each round, in the person's words.
 
 ## Phase notes
 
-One or two lines per phase from Phase 5 on: what was built or filed, and anything a later chat needs.
+One or two lines for any phase that leaves something a later chat needs: what was shown, built or filed, and what is unsettled.
 
 ## Approved folder tree
 
