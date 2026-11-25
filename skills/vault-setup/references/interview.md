@@ -4,7 +4,7 @@ The interview is where the vault gets its shape. Thin answers produce a generic 
 
 ## How to run it
 
-- Rounds A to D are open questions in chat, one at a time. Wait for each answer before asking the next. One question can cover several bullets when they belong together ("tell me about that project: what it is for, when it is due, who is on it and where it stands"); then ask one follow-up for whatever the answer left out. Do not turn each bullet into its own turn. Tell the person once, at the start, that they can dictate.
+- Rounds A to D are open questions in chat, one at a time. Wait for each answer before asking the next. One question can cover several bullets when they belong together ("tell me about that project: what it is for, when it is due, who is on it and where it stands"); then ask one follow-up for whatever the answer left out. Do not turn each bullet into its own turn. The opening message already told them they can dictate; do not repeat it.
 - Round E is part cards and part chat; the round says which. Round F is one card, or one line when there is no project memory to offer.
 - When a question the round needs gets no answer, record "not stated" and move on. Do not fill the gap yourself.
 - Use what the person has already said to shape later questions and card options. Do not ask what you can already infer or what they already told you; say what you took from it and let them correct it.
