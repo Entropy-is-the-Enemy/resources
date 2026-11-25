@@ -21,6 +21,8 @@ leaks=$(grep -rlE "51200|56800|Example Donor|555-01|Test Ln|Sample Rd" "$V" --in
 
 for f in "$S"/to-drop/*; do
   b=$(basename "$f"); n=$(find "$V" -name "$b" | wc -l | tr -d ' ')
+  # The one rename Dana asks for herself.
+  [ "$b" = "FINAL final v3 board notes (2).txt" ] && n=$((n + $(find "$V" -name "board-notes-2026-09.txt" | wc -l | tr -d ' ')))
   [ "$n" = 1 ] || say FAIL "dropped file '$b' is in the vault $n times (renamed, lost or duplicated)"
 done
 [ "$fail" = 0 ] && say PASS "every dropped file is in the vault once, under its own name"
@@ -48,5 +50,10 @@ for path in wrong_only:
     print("uses 5,740 without 5,470: " + path)
 sys.exit(0 if both and not wrong_only else 1)
 PY
+if [ -n "$(find "$V" -name "board-notes-2026-09.txt")" ]; then
+  grep -q "board-notes-2026-09.txt" "$V/00 Operating System/Reorg Manifests/"*.md && say PASS "the requested rename is in a reorg manifest" || say FAIL "the rename is not in any reorg manifest"
+else
+  say FAIL "the rename Dana asked for was not made"
+fi
 diff -rq "$S/skill" "$(cd "$(dirname "$0")" && pwd)/../../skills/vault-setup" >/dev/null && say PASS "skill copy untouched" || say FAIL "skill copy differs from the repo"
 exit $fail

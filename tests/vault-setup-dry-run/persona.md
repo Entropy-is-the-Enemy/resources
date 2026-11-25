@@ -36,5 +36,5 @@ If offered: vault memory folder.
 - After Phase 4, Dana says she has to stop for the day (forces a handoff and a resume). The resumed session continues to the end.
 - Phase 6: not in a Claude project (Claude Code style); if asked to paste, says "there is no instructions field here".
 - Phase 7: says "done" after dropping the batch (the tester copies everything from the to-drop folder into _Inbox at that moment).
-- Phase 8: approves sensible filing groups; rejects any proposal to rename files ("keep my names"). The board notes file belongs with board reporting.
+- Phase 8: approves sensible filing groups; rejects any proposal to rename files ("keep my names"). The board notes file belongs with board reporting. During the review of that file's group she asks for one rename herself: "rename FINAL final v3 board notes (2).txt to board-notes-2026-09.txt".
 - Phase 9: picks the board packet one-pager for October. Goal: one page with October gifts, total, new donors, for Tobias; from the October gift export. When asked to check a claim, opens the gift export and confirms the total.
